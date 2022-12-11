@@ -1,4 +1,4 @@
-const http = require('http')
+// const http = require('http')
 const fs = require('fs')
 const requests = require('requests')
 
@@ -33,7 +33,9 @@ const replaceValueInHTMLFile = (temporaryValue, originalValue) => {
     return value
 }
 
-const server = http.createServer((req, res) => {
+//Main Function
+// const server = http.createServer((req, res) => {
+module.exports = (req, res) => {
     if (req.url == '/') {
 
         requests('http://ipinfo.io')
@@ -67,6 +69,7 @@ const server = http.createServer((req, res) => {
 
 
     }
-})
+}
+// })
 
-server.listen(8000, "127.0.0.1")
+// server.listen(8000, "127.0.0.1")
