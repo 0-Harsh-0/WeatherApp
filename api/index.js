@@ -3,21 +3,21 @@ const fs = require('fs')
 const requests = require('requests')
 
 const statusIcons = {
-    'Clouds': './images/cloudy.png',
-    'Rain': './images/rain.png',
-    'Clear': './images/sun.png',
-    'Mist': './images/mist.png',
-    'Smoke': './images/smoke.png',
-    'Haze': './images/haze.png',
-    'Dust': './images/dust.png',
-    'Fog': './images/fog.png',
-    'Sand': './images/sand.png',
-    'Ash': './images/ash.png',
-    'Squall': './images/windstorm.png',
-    'Tornado': './images/tornado.png',
-    'Snow': './images/snow.png',
-    'Drizzle': './images/drizzle.png',
-    'Thunderstorm': './images/thunderstorm.png',
+    'Clouds': '../images/cloudy.png',
+    'Rain': '../images/rain.png',
+    'Clear': '../images/sun.png',
+    'Mist': '../images/mist.png',
+    'Smoke': '../images/smoke.png',
+    'Haze': '../images/haze.png',
+    'Dust': '../images/dust.png',
+    'Fog': '../images/fog.png',
+    'Sand': '../images/sand.png',
+    'Ash': '../images/ash.png',
+    'Squall': '../images/windstorm.png',
+    'Tornado': '../images/tornado.png',
+    'Snow': '../images/snow.png',
+    'Drizzle': '../images/drizzle.png',
+    'Thunderstorm': '../images/thunderstorm.png',
 }
 
 
