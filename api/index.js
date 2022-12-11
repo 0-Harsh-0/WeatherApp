@@ -21,7 +21,7 @@ const statusIcons = {
 }
 
 
-const home = fs.readFileSync('index.html', 'utf-8')
+const home = fs.readFileSync('../index.html', 'utf-8')
 
 
 const replaceValueInHTMLFile = (temporaryValue, originalValue) => {
