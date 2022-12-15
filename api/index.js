@@ -1,50 +1,61 @@
+// const http = require('http')
+const fs = require('fs')
+const requests = require('requests')
+const path = require('path')
+
+const ImageNames = {
+    'Clouds': 'cloudy.png',
+    'Rain': 'rain.png',
+    'Clear': 'sun.png',
+    'Mist': 'mist.png',
+    'Smoke': 'smoke.png',
+    'Haze': 'haze.png',
+    'Dust': 'dust.png',
+    'Fog': 'fog.png',
+    'Sand': 'sand.png',
+    'Ash': 'ash.png',
+    'Squall': 'windstorm.png',
+    'Tornado': 'tornado.png',
+    'Snow': 'snow.png',
+    'Drizzle': 'drizzle.png',
+    'Thunderstorm': 'thunderstorm.png',
+}
+
+let statusIcons = {}
+
+let keys = Object.keys(ImageNames)
+for (let i = 0; i < keys.length; i++) {
+   
+    let imagePath = path.join(process.cwd(),'images',ImageNames[keys[i]])
+    statusIcons[keys[i]] = imagePath
+}
+
+
+const filePath = path.resolve('home.html')
+
+const home = fs.readFileSync(filePath , 'utf-8')
+
+
+const replaceValueInHTMLFile = (temporaryValue, originalValue) => {
+    let value = temporaryValue.replace("{%temperature%}", originalValue.main.temp)
+    value = value.replace("{%minTemperature%}", originalValue.main.temp_min)
+    value = value.replace("{%maxTemperature%}", originalValue.main.temp_max)
+    value = value.replace("{%location%}", originalValue.name)
+    value = value.replace("{%country%}", originalValue.sys.country)
+    return value
+}
+
+
 
 //Main Function
 // const server = http.createServer((req, res) => {
-module.exports = (req, res) => {
-    // const http = require('http')
-    const fs = require('fs')
-    const requests = require('requests')
 
-    const statusIcons = {
-        'Clouds': '../images/cloudy.png',
-        'Rain': '../images/rain.png',
-        'Clear': '../images/sun.png',
-        'Mist': '../images/mist.png',
-        'Smoke': '../images/smoke.png',
-        'Haze': '../images/haze.png',
-        'Dust': '../images/dust.png',
-        'Fog': '../images/fog.png',
-        'Sand': '../images/sand.png',
-        'Ash': '../images/ash.png',
-        'Squall': '../images/windstorm.png',
-        'Tornado': '../images/tornado.png',
-        'Snow': '../images/snow.png',
-        'Drizzle': '../images/drizzle.png',
-        'Thunderstorm': '../images/thunderstorm.png',
-    }
-
-
-    const home = fs.readFileSync('./home.html', 'utf-8')
-
-
-    const replaceValueInHTMLFile = (temporaryValue, originalValue) => {
-        let value = temporaryValue.replace("{%temperature%}", originalValue.main.temp)
-        value = value.replace("{%minTemperature%}", originalValue.main.temp_min)
-        value = value.replace("{%maxTemperature%}", originalValue.main.temp_max)
-        value = value.replace("{%location%}", originalValue.name)
-        value = value.replace("{%country%}", originalValue.sys.country)
-        return value
-    }
-
-
-
-    if (req.url == '/') {
+export default function handler(req, res) {
 
         requests('http://ipinfo.io')
             .on('data', function (data) {
                 let info = JSON.parse(data)
-                city = info.city
+                let city = info.city
                 city = city.replace('ī', 'i')
                 city = city.replace('ā', 'a')
    
@@ -62,17 +73,16 @@ module.exports = (req, res) => {
                         res.write(`${part1}<img src="data:image/jpeg;base64,`)
                         res.write(Buffer.from(image).toString('base64'));
                         res.end(`"/><p>${weatherCondition}</p>${part2}`);
+    
                     })
                     .on('end', function (err) {
                         if (err) return console.log('connection closed due to errors', err);
                         res.end()
                     });
             })
-
-
-
-    }
 }
+
 // })
 
 // server.listen(8000, "127.0.0.1")
+
